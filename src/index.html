@@ -6,8 +6,46 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    function startSecond() {
+      console.log('---------------');
+
+      console.log('removing main.js from page');
+      const nodeList = document.querySelectorAll('script');
+      for (let i = 0; i < nodeList.length; i++) {
+        const elem = nodeList[i];
+
+        if (elem.src === 'main.js') {
+          document.removeChild(elem);
+          break;
+        }
+      }
+
+      console.log('adding main.js to page');
+      const scriptTag = document.createElement('script');
+      scriptTag.src = 'main.js';
+      scriptTag.type = 'module';
+      document.body.appendChild(scriptTag);
+
+      console.log('removing custom-root from page');
+      const customRootElement = document.querySelector('custom-root');
+      document.body.removeChild(customRootElement);
+
+      console.log('adding custom-root to page');
+      const nextRootElement = document.createElement('custom-root');
+      document.body.appendChild(nextRootElement);
+    }
+  </script>
+  <style>
+    .index {
+      background-color: lightpink;
+    }
+  </style>
 </head>
 <body>
-  <app-root></app-root>
+  <!--<app-root></app-root>-->
+  <custom-root></custom-root>
+
+  <button class="index" onclick="startSecond()">Reload / restart app</button>
 </body>
 </html>
